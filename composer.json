@@ -1,0 +1,20 @@
+{
+    "name": "fussy0064/cheem-app",
+    "description": "CHEEM Portal - Health, Environment & Economic Assessment reporting app",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "yiisoft/yii2": "~2.0.45",
+        "yiisoft/yii2-bootstrap5": "~2.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": ""
+        }
+    }
+}

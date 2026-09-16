@@ -1,0 +1,57 @@
+<?php
+
+use yii\helpers\Html;
+use yii\bootstrap5\Nav;
+use yii\bootstrap5\NavBar;
+use app\assets\AppAsset;
+
+/** @var \yii\web\View $this */
+/** @var string $content */
+
+AppAsset::register($this);
+?>
+<?php $this->beginPage() ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?= Html::encode($this->title) ?> - CHEEM App</title>
+    <?php $this->head() ?>
+    <style>
+        body { background:#f4f6f7; }
+        .navbar { background:#0b5d6e !important; }
+        .navbar-brand, .nav-link { color:#fff !important; }
+        .badge-high { background:#e67e22; }
+        .badge-low { background:#27ae60; }
+        .badge-medium { background:#f1c40f; color:#333; }
+    </style>
+</head>
+<body>
+<?php $this->beginBody() ?>
+
+<nav class="navbar navbar-expand-md">
+    <div class="container">
+        <a class="navbar-brand" href="<?= \yii\helpers\Url::to(['/site/index']) ?>">CHEEM</a>
+        <?php if (!Yii::$app->user->isGuest): ?>
+            <div class="ms-auto d-flex align-items-center">
+                <span class="text-white me-3"><?= Html::encode(Yii::$app->user->identity->username) ?> (<?= Html::encode(Yii::$app->user->identity->role) ?>)</span>
+                <?= Html::beginForm(['/site/logout'], 'post') ?>
+                    <?= Html::submitButton('Logout', ['class' => 'btn btn-sm btn-outline-light']) ?>
+                <?= Html::endForm() ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</nav>
+
+<div class="container py-4">
+    <?php if (Yii::$app->session->hasFlash('success')): ?>
+        <div class="alert alert-success"><?= Yii::$app->session->getFlash('success') ?></div>
+    <?php endif; ?>
+    <?= $content ?>
+</div>
+
+<?php $this->endBody() ?>
+</body>
+</html>
+<?php $this->endPage() ?>

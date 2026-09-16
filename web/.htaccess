@@ -1,0 +1,11 @@
+RewriteEngine on
+
+# deny access to sensitive files
+RewriteRule \.(git|env|lock)$ - [F,L]
+
+# if a directory or a file exists, use the request directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward it to index.php
+RewriteRule . index.php
