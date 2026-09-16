@@ -33,5 +33,7 @@ $resolvedCount = ServiceRequest::find()->where(['status' => 'resolved'])->count(
 </div>
 
 <div class="text-center">
-    <?= Html::a('Open Kanban Board', ['request/manage'], ['class' => 'btn btn-primary btn-lg']) ?>
+    <?= Html::a('Open Kanban Board', ['request/manage'], ['class' => 'btn btn-primary btn-lg me-2']) ?>
+    <?= Html::a('+ Add Service', ['admin/service-create'], ['class' => 'btn btn-outline-primary btn-lg me-2']) ?>
+    <?= Html::a('+ Add News', ['admin/news-create'], ['class' => 'btn btn-outline-primary btn-lg']) ?>
 </div>

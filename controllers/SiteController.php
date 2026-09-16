@@ -9,6 +9,8 @@ use yii\web\Controller;
 use app\models\LoginForm;
 use app\models\SignupForm;
 use app\models\User;
+use app\models\NewsPost;
+use app\models\Service;
 
 class SiteController extends Controller
 {
@@ -24,9 +26,14 @@ class SiteController extends Controller
                         'roles' => ['?'], // guests only
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'], // logged-in users only
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['?', '@'], // public landing page + logged-in dashboard
                     ],
                 ],
             ],
@@ -41,6 +48,12 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            $news = NewsPost::find()->where(['active' => 1])->orderBy(['created_at' => SORT_DESC])->limit(5)->all();
+            $services = Service::find()->where(['active' => 1])->all();
+            return $this->render('landing', ['news' => $news, 'services' => $services]);
+        }
+
         $user = Yii::$app->user->identity;
 
         if ($user->isAdmin() || $user->isHealthOfficer()) {

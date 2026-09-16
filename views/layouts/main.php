@@ -33,9 +33,16 @@ AppAsset::register($this);
 <nav class="navbar navbar-expand-md">
     <div class="container">
         <a class="navbar-brand" href="<?= \yii\helpers\Url::to(['/site/index']) ?>">CHEEM</a>
-        <?php if (!Yii::$app->user->isGuest): ?>
+        <?php if (!Yii::$app->user->isGuest): $u = Yii::$app->user->identity; ?>
             <div class="ms-auto d-flex align-items-center">
-                <span class="text-white me-3"><?= Html::encode(Yii::$app->user->identity->username) ?> (<?= Html::encode(Yii::$app->user->identity->role) ?>)</span>
+                <?php if ($u->isAdmin() || $u->isHealthOfficer()): ?>
+                    <a class="nav-link d-inline me-3" href="<?= \yii\helpers\Url::to(['/admin/services']) ?>">Services</a>
+                    <a class="nav-link d-inline me-3" href="<?= \yii\helpers\Url::to(['/admin/news']) ?>">News</a>
+                    <a class="nav-link d-inline me-3" href="<?= \yii\helpers\Url::to(['/suggestion/index']) ?>">Suggestions</a>
+                <?php else: ?>
+                    <a class="nav-link d-inline me-3" href="<?= \yii\helpers\Url::to(['/suggestion/create']) ?>">Suggestions</a>
+                <?php endif; ?>
+                <span class="text-white me-3"><?= Html::encode($u->username) ?> (<?= Html::encode($u->role) ?>)</span>
                 <?= Html::beginForm(['/site/logout'], 'post') ?>
                     <?= Html::submitButton('Logout', ['class' => 'btn btn-sm btn-outline-light']) ?>
                 <?= Html::endForm() ?>
