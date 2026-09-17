@@ -17,6 +17,7 @@ AppAsset::register($this);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= Html::encode($this->title) ?> - CHEEM App</title>
+    <link rel="icon" type="image/x-icon" href="<?= \yii\helpers\Url::to('@web/favicon.ico') ?>">
     <?php $this->head() ?>
     <style>
         body { background:#f4f6f7; }
@@ -32,7 +33,10 @@ AppAsset::register($this);
 
 <nav class="navbar navbar-expand-md">
     <div class="container">
-        <a class="navbar-brand" href="<?= \yii\helpers\Url::to(['/site/index']) ?>">CHEEM</a>
+        <a class="navbar-brand d-flex align-items-center" href="<?= \yii\helpers\Url::to(['/site/index']) ?>">
+            <img src="<?= \yii\helpers\Url::to('@web/images/logo.png') ?>" alt="CHEEM" style="height:36px;width:36px;border-radius:50%;object-fit:cover;margin-right:8px">
+            CHEEM
+        </a>
         <?php if (!Yii::$app->user->isGuest): $u = Yii::$app->user->identity; ?>
             <div class="ms-auto d-flex align-items-center">
                 <?php if ($u->isAdmin() || $u->isHealthOfficer()): ?>

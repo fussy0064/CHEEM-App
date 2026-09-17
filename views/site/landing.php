@@ -7,6 +7,7 @@ use yii\helpers\Html;
 $this->title = 'Welcome';
 ?>
 <div class="text-center mb-4">
+    <img src="<?= \yii\helpers\Url::to('@web/images/logo.png') ?>" alt="CHEEM logo" style="height:100px;width:100px;border-radius:50%;object-fit:cover;margin-bottom:12px">
     <h1>CHEEM Portal</h1>
     <p class="lead">Consultation, Health &amp; Environment Management</p>
     <?= Html::a('Login', ['site/login'], ['class' => 'btn btn-primary me-2']) ?>
