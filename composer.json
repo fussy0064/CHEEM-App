@@ -2,6 +2,12 @@
     "name": "fussy0064/cheem-app",
     "description": "CHEEM Portal - Health, Environment & Economic Assessment reporting app",
     "type": "project",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
     "require": {
         "php": ">=7.4",
         "yiisoft/yii2": "~2.0.45",
