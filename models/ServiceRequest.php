@@ -77,6 +77,7 @@ class ServiceRequest extends ActiveRecord
             $filename = Yii::$app->security->generateRandomString(16) . '.' . $this->photoFile->extension;
             $this->photoFile->saveAs($dir . '/' . $filename);
             $this->photo_path = 'uploads/requests/' . $filename;
+            $this->photoFile = null; // clear so re-validation on save() doesn't check the now-moved temp file
         }
         return true;
     }

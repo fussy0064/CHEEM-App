@@ -52,6 +52,7 @@ class NewsPost extends ActiveRecord
             $filename = Yii::$app->security->generateRandomString(16) . '.' . $this->imageFile->extension;
             $this->imageFile->saveAs($dir . '/' . $filename);
             $this->image_path = 'uploads/news/' . $filename;
+            $this->imageFile = null; // clear so re-validation on save() doesn't check the now-moved temp file
         }
         return true;
     }
