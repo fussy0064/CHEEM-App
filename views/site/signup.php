@@ -28,11 +28,6 @@ $this->title = 'Sign Up';
                     <?= Html::error($model, 'password', ['class' => 'invalid-feedback d-block']) ?>
                 </div>
 
-                <?= $form->field($model, 'role')->dropDownList([
-                    User::ROLE_FIELD_WORKER => 'Field Worker / Site Manager',
-                    User::ROLE_HEALTH_OFFICER => 'Health Officer',
-                ], ['prompt' => 'I am a...']) ?>
-
                 <div class="d-grid">
                     <?= Html::submitButton('Sign Up', ['class' => 'btn btn-primary']) ?>
                 </div>
