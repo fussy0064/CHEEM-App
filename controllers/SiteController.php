@@ -12,6 +12,8 @@ use app\models\User;
 use app\models\NewsPost;
 use app\models\Service;
 use app\models\VerifyOtpForm;
+use app\models\ForgotPasswordForm;
+use app\models\ResetPasswordOtpForm;
 
 class SiteController extends Controller
 {
@@ -22,7 +24,7 @@ class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['login', 'signup', 'error', 'verify-phone', 'resend-otp'],
+                        'actions' => ['login', 'signup', 'error', 'verify-phone', 'resend-otp', 'forgot-password', 'reset-password-otp', 'resend-reset-otp'],
                         'allow' => true,
                         'roles' => ['?'], // guests only
                     ],
@@ -43,6 +45,7 @@ class SiteController extends Controller
                 'actions' => [
                     'logout' => ['post'],
                     'resend-otp' => ['post'],
+                    'resend-reset-otp' => ['post'],
                 ],
             ],
         ];
@@ -151,6 +154,72 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('success', 'A new code has been sent.');
         }
         return $this->redirect(['verify-phone']);
+    }
+
+    // ---- Forgot password (via phone OTP) ----
+
+    public function actionForgotPassword()
+    {
+        $model = new ForgotPasswordForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $user = $model->getUser();
+            if (!$user) {
+                $model->addError('phone_number', 'No account found with this phone number.');
+            } else {
+                $code = $user->generateOtp();
+                Yii::$app->sms->send($user->phone_number, "Your CHEEM password reset code is: $code");
+                Yii::$app->session->set('password_reset_user_id', $user->id);
+                Yii::$app->session->setFlash('success', 'A reset code has been sent to your phone.');
+                return $this->redirect(['reset-password-otp']);
+            }
+        }
+
+        return $this->render('forgot-password', ['model' => $model]);
+    }
+
+    public function actionResetPasswordOtp()
+    {
+        $userId = Yii::$app->session->get('password_reset_user_id');
+        if (!$userId) {
+            return $this->redirect(['forgot-password']);
+        }
+        $user = User::findOne($userId);
+        if (!$user) {
+            Yii::$app->session->remove('password_reset_user_id');
+            return $this->redirect(['forgot-password']);
+        }
+
+        $model = new ResetPasswordOtpForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($user->verifyOtp($model->code)) {
+                $user->setPassword($model->password);
+                $user->generateAuthKey(); // invalidate old sessions
+                $user->save(false);
+
+                Yii::$app->session->remove('password_reset_user_id');
+                Yii::$app->session->setFlash('success', 'Password reset! You can now log in.');
+                return $this->redirect(['login']);
+            }
+            $model->addError('code', 'Invalid or expired code.');
+        }
+
+        return $this->render('reset-password-otp', ['model' => $model, 'phone' => $user->phone_number]);
+    }
+
+    public function actionResendResetOtp()
+    {
+        $userId = Yii::$app->session->get('password_reset_user_id');
+        if (!$userId) {
+            return $this->redirect(['forgot-password']);
+        }
+        $user = User::findOne($userId);
+        if ($user) {
+            $code = $user->generateOtp();
+            Yii::$app->sms->send($user->phone_number, "Your CHEEM password reset code is: $code");
+            Yii::$app->session->setFlash('success', 'A new code has been sent.');
+        }
+        return $this->redirect(['reset-password-otp']);
     }
 
     public function actionLogout()

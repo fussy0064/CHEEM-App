@@ -37,6 +37,9 @@ $this->title = 'Login';
                 <p class="text-center mt-3">
                     No account? <?= Html::a('Sign up', ['site/signup']) ?>
                 </p>
+                <p class="text-center">
+                    <?= Html::a('Forgot password?', ['site/forgot-password'], ['class' => 'small']) ?>
+                </p>
             </div>
         </div>
     </div>
