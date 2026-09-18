@@ -11,11 +11,12 @@ class SignupForm extends Model
     public $email;
     public $phone_number;
     public $password;
+    public $password_repeat;
 
     public function rules()
     {
         return [
-            [['username', 'email', 'phone_number', 'password'], 'required'],
+            [['username', 'email', 'phone_number', 'password', 'password_repeat'], 'required'],
             ['username', 'string', 'min' => 3, 'max' => 255],
             ['username', 'unique', 'targetClass' => User::class, 'message' => 'This username is taken.'],
             ['email', 'email'],
@@ -23,6 +24,7 @@ class SignupForm extends Model
             ['phone_number', 'match', 'pattern' => '/^(0|255)[67]\d{8}$/', 'message' => 'Enter a valid Tanzanian phone number, e.g. 0712345678.'],
             ['phone_number', 'unique', 'targetClass' => User::class, 'message' => 'This phone number is already registered.'],
             ['password', 'string', 'min' => 8],
+            ['password_repeat', 'compare', 'compareAttribute' => 'password', 'message' => "Passwords don't match."],
         ];
     }
 

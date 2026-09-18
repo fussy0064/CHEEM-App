@@ -29,6 +29,16 @@ $this->title = 'Sign Up';
                     <?= Html::error($model, 'password', ['class' => 'invalid-feedback d-block']) ?>
                 </div>
 
+                <div class="mb-3">
+                    <label class="form-label">Confirm Password</label>
+                    <div class="input-group">
+                        <?= Html::activePasswordInput($model, 'password_repeat', ['class' => 'form-control', 'id' => 'signup-password-repeat']) ?>
+                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="signup-password-repeat">👁</button>
+                    </div>
+                    <?= Html::error($model, 'password_repeat', ['class' => 'invalid-feedback d-block']) ?>
+                    <div id="password-match-msg" class="small mt-1"></div>
+                </div>
+
                 <div class="d-grid">
                     <?= Html::submitButton('Sign Up', ['class' => 'btn btn-primary']) ?>
                 </div>
@@ -38,3 +48,28 @@ $this->title = 'Sign Up';
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var pass = document.getElementById('signup-password');
+    var repeat = document.getElementById('signup-password-repeat');
+    var msg = document.getElementById('password-match-msg');
+
+    function checkMatch() {
+        if (!repeat.value) {
+            msg.textContent = '';
+            return;
+        }
+        if (pass.value === repeat.value) {
+            msg.textContent = '✅ Passwords match';
+            msg.className = 'small mt-1 text-success';
+        } else {
+            msg.textContent = '❌ Passwords do not match';
+            msg.className = 'small mt-1 text-danger';
+        }
+    }
+
+    pass.addEventListener('input', checkMatch);
+    repeat.addEventListener('input', checkMatch);
+});
+</script>
