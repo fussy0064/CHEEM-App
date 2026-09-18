@@ -18,6 +18,7 @@ $this->title = 'Manage Users';
             <td><?= $u->status ? '<span class="text-success">Active</span>' : '<span class="text-danger">Disabled</span>' ?></td>
             <td>
                 <?php if ($u->id !== Yii::$app->user->id): ?>
+                    <?= Html::a('Reset Password', ['reset-password', 'id' => $u->id], ['class' => 'btn btn-sm btn-outline-warning']) ?>
                     <?= Html::a($u->status ? 'Disable' : 'Enable', ['toggle-status', 'id' => $u->id], [
                         'class' => 'btn btn-sm btn-outline-secondary',
                         'data' => ['method' => 'post', 'confirm' => 'Are you sure?'],

@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
 use app\models\User;
 use app\models\UserForm;
+use app\models\ResetPasswordForm;
 
 class UserController extends Controller
 {
@@ -76,6 +77,28 @@ class UserController extends Controller
         $user->save(false);
 
         return $this->redirect(['index']);
+    }
+
+    /** Superadmin resets another user's password directly - no old password needed */
+    public function actionResetPassword($id)
+    {
+        $user = User::findOne($id);
+        if (!$user) {
+            throw new NotFoundHttpException('User not found.');
+        }
+
+        $model = new ResetPasswordForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $user->setPassword($model->password);
+            $user->generateAuthKey(); // invalidates old sessions/remember-me tokens for security
+            $user->save(false);
+
+            Yii::$app->session->setFlash('success', "Password reset for '{$user->username}'.");
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('reset-password', ['model' => $model, 'targetUser' => $user]);
     }
 
     /** Delete a user. Can't delete your own account. */
