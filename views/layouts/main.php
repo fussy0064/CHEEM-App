@@ -18,6 +18,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= Html::encode($this->title) ?> - CHEEM App</title>
     <link rel="icon" type="image/x-icon" href="<?= \yii\helpers\Url::to('@web/favicon.ico') ?>">
+    <?= Html::csrfMetaTags() ?>
     <?php $this->head() ?>
     <style>
         body { background:#f4f6f7; }
