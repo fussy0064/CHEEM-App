@@ -8,7 +8,7 @@ $this->title = 'My Requests';
 
 <table class="table table-bordered bg-white">
     <thead>
-        <tr><th>Ref</th><th>Category</th><th>Location</th><th>Urgency</th><th>Status</th></tr>
+        <tr><th>Ref</th><th>Category</th><th>Location</th><th>Urgency</th><th>Status</th><th>Map</th></tr>
     </thead>
     <tbody>
     <?php foreach ($requests as $r): ?>
@@ -18,6 +18,7 @@ $this->title = 'My Requests';
             <td><?= Html::encode($r->location) ?></td>
             <td><span class="badge badge-<?= $r->urgency ?>"><?= $r->getUrgencyLabel() ?></span></td>
             <td><?= $r->getStatusLabel() ?></td>
+            <td><?php if ($r->hasLocation()): ?><?= Html::a('📍 View', $r->getMapUrl(), ['target' => '_blank']) ?><?php endif; ?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>

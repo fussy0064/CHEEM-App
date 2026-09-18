@@ -12,6 +12,8 @@ use yii\web\UploadedFile;
  * @property int $user_id
  * @property string $category
  * @property string $location
+ * @property float $latitude
+ * @property float $longitude
  * @property string $description
  * @property string $urgency
  * @property string $status
@@ -46,6 +48,8 @@ class ServiceRequest extends ActiveRecord
             [['category', 'location', 'description', 'urgency'], 'required'],
             [['description'], 'string'],
             [['location'], 'string', 'max' => 255],
+            [['latitude', 'longitude'], 'number'],
+            [['latitude', 'longitude'], 'default', 'value' => null],
             [['category'], 'in', 'range' => [
                 self::CATEGORY_WATER, self::CATEGORY_WASTE, self::CATEGORY_PEST,
                 self::CATEGORY_SAFETY, self::CATEGORY_RISK, self::CATEGORY_ECONOMIC,
@@ -90,5 +94,18 @@ class ServiceRequest extends ActiveRecord
     public function getStatusLabel()
     {
         return ['pending' => 'Pending', 'in_progress' => 'In Progress', 'resolved' => 'Resolved'][$this->status] ?? $this->status;
+    }
+
+    public function hasLocation()
+    {
+        return $this->latitude !== null && $this->longitude !== null;
+    }
+
+    public function getMapUrl()
+    {
+        if (!$this->hasLocation()) {
+            return null;
+        }
+        return "https://www.openstreetmap.org/?mlat={$this->latitude}&mlon={$this->longitude}#map=17/{$this->latitude}/{$this->longitude}";
     }
 }

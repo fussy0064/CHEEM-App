@@ -12,7 +12,10 @@ function renderCard($r) {
     $html .= '<strong>' . Html::encode(ucfirst($r->category)) . '</strong><br>';
     $html .= Html::encode($r->location) . '<br>';
     $html .= '<span class="badge badge-' . $r->urgency . '">' . $r->getUrgencyLabel() . '</span> ';
-    $html .= '<span class="small text-muted">' . Html::encode($r->reference_number) . '</span>';
+    $html .= '<span class="small text-muted">' . Html::encode($r->reference_number) . '</span><br>';
+    if ($r->hasLocation()) {
+        $html .= '<a href="' . Html::encode($r->getMapUrl()) . '" target="_blank" class="small">📍 View Location</a>';
+    }
     $html .= '<div class="mt-2">';
     if ($r->status !== 'in_progress') {
         $html .= Html::beginForm(['request/update-status', 'id' => $r->id], 'post', ['style' => 'display:inline']);
