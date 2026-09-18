@@ -1,0 +1,24 @@
+<?php
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use app\models\User;
+
+/** @var \app\models\UserForm $model */
+$this->title = 'Add User';
+?>
+<h2>Add User</h2>
+
+<?php $form = ActiveForm::begin(); ?>
+
+<?= $form->field($model, 'username') ?>
+<?= $form->field($model, 'email') ?>
+<?= $form->field($model, 'password')->passwordInput() ?>
+<?= $form->field($model, 'role')->dropDownList([
+    User::ROLE_FIELD_WORKER => 'Field Worker / Site Manager',
+    User::ROLE_HEALTH_OFFICER => 'Health Officer',
+    User::ROLE_ADMIN => 'Admin (Superadmin)',
+], ['prompt' => 'Select role']) ?>
+
+<?= Html::submitButton('Create User', ['class' => 'btn btn-primary']) ?>
+
+<?php ActiveForm::end(); ?>

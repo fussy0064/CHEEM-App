@@ -39,7 +39,12 @@ AppAsset::register($this);
         </a>
         <?php if (!Yii::$app->user->isGuest): $u = Yii::$app->user->identity; ?>
             <div class="ms-auto d-flex align-items-center">
-                <?php if ($u->isAdmin() || $u->isHealthOfficer()): ?>
+                <?php if ($u->isAdmin()): ?>
+                    <a class="nav-link d-inline me-3" href="<?= \yii\helpers\Url::to(['/user/index']) ?>">Users</a>
+                    <a class="nav-link d-inline me-3" href="<?= \yii\helpers\Url::to(['/admin/services']) ?>">Services</a>
+                    <a class="nav-link d-inline me-3" href="<?= \yii\helpers\Url::to(['/admin/news']) ?>">News</a>
+                    <a class="nav-link d-inline me-3" href="<?= \yii\helpers\Url::to(['/suggestion/index']) ?>">Suggestions</a>
+                <?php elseif ($u->isHealthOfficer()): ?>
                     <a class="nav-link d-inline me-3" href="<?= \yii\helpers\Url::to(['/admin/services']) ?>">Services</a>
                     <a class="nav-link d-inline me-3" href="<?= \yii\helpers\Url::to(['/admin/news']) ?>">News</a>
                     <a class="nav-link d-inline me-3" href="<?= \yii\helpers\Url::to(['/suggestion/index']) ?>">Suggestions</a>
