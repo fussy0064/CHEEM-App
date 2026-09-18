@@ -16,7 +16,16 @@ $this->title = 'Login';
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
                 <?= $form->field($model, 'username') ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <div class="input-group">
+                        <?= Html::activePasswordInput($model, 'password', ['class' => 'form-control', 'id' => 'login-password']) ?>
+                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="login-password">👁</button>
+                    </div>
+                    <?= Html::error($model, 'password', ['class' => 'invalid-feedback d-block']) ?>
+                </div>
+
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
                 <div class="d-grid">

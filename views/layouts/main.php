@@ -73,6 +73,21 @@ AppAsset::register($this);
 </div>
 
 <?php $this->endBody() ?>
+<script>
+document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.toggle-password');
+    if (!btn) return;
+    var input = document.getElementById(btn.dataset.target);
+    if (!input) return;
+    if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+    } else {
+        input.type = 'password';
+        btn.textContent = '👁';
+    }
+});
+</script>
 </body>
 </html>
 <?php $this->endPage() ?>
