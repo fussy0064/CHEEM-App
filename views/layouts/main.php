@@ -51,6 +51,11 @@ AppAsset::register($this);
                     <?= Html::submitButton('Logout', ['class' => 'btn btn-sm btn-outline-light']) ?>
                 <?= Html::endForm() ?>
             </div>
+        <?php else: ?>
+            <div class="ms-auto d-flex align-items-center">
+                <?= Html::a('Login', ['/site/login'], ['class' => 'btn btn-sm btn-primary me-2']) ?>
+                <?= Html::a('Sign Up', ['/site/signup'], ['class' => 'btn btn-sm btn-outline-light']) ?>
+            </div>
         <?php endif; ?>
     </div>
 </nav>

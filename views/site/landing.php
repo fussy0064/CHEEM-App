@@ -10,8 +10,6 @@ $this->title = 'Welcome';
     <img src="<?= \yii\helpers\Url::to('@web/images/logo.png') ?>" alt="CHEEM logo" style="height:100px;width:100px;border-radius:50%;object-fit:cover;margin-bottom:12px">
     <h1>CHEEM Portal</h1>
     <p class="lead">Consultation, Health &amp; Environment Management</p>
-    <?= Html::a('Login', ['site/login'], ['class' => 'btn btn-primary me-2']) ?>
-    <?= Html::a('Sign Up', ['site/signup'], ['class' => 'btn btn-outline-primary']) ?>
 </div>
 
 <?php if (!empty($news)): ?>
