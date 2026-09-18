@@ -35,6 +35,12 @@ $config = [
             ],
         ],
         'db' => $db,
+        'sms' => [
+            'class' => 'app\components\SmsService',
+            'apiKey' => 'YOUR_BEEM_API_KEY',
+            'secretKey' => 'YOUR_BEEM_SECRET_KEY',
+            'senderId' => 'INFO', // must be an approved sender name on your Beem account
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,

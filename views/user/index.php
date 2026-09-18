@@ -8,12 +8,13 @@ $this->title = 'Manage Users';
 <?= Html::a('+ Add Health Officer / User', ['create'], ['class' => 'btn btn-primary mb-3']) ?>
 
 <table class="table table-bordered bg-white">
-    <thead><tr><th>Username</th><th>Email</th><th>Role</th><th>Status</th><th></th></tr></thead>
+    <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Role</th><th>Status</th><th></th></tr></thead>
     <tbody>
     <?php foreach ($users as $u): ?>
         <tr>
             <td><?= Html::encode($u->username) ?></td>
             <td><?= Html::encode($u->email) ?></td>
+            <td><?= Html::encode($u->phone_number ?: '-') ?> <?= $u->phone_verified ? '' : '<span class="badge bg-warning text-dark">unverified</span>' ?></td>
             <td><span class="badge bg-info text-dark"><?= Html::encode(ucfirst(str_replace('_', ' ', $u->role))) ?></span></td>
             <td><?= $u->status ? '<span class="text-success">Active</span>' : '<span class="text-danger">Disabled</span>' ?></td>
             <td>

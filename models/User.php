@@ -13,6 +13,10 @@ use yii\web\IdentityInterface;
  * @property int $id
  * @property string $username
  * @property string $email
+ * @property string $phone_number
+ * @property int $phone_verified
+ * @property string $otp_hash
+ * @property int $otp_expires_at
  * @property string $password_hash
  * @property string $auth_key
  * @property string $role  field_worker | health_officer | admin
@@ -48,6 +52,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['email'], 'email'],
+            [['phone_number'], 'string', 'max' => 20],
             [['role'], 'in', 'range' => [self::ROLE_FIELD_WORKER, self::ROLE_HEALTH_OFFICER, self::ROLE_ADMIN]],
             [['status'], 'default', 'value' => self::STATUS_ACTIVE],
             [['status'], 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DISABLED]],
@@ -118,5 +123,36 @@ class User extends ActiveRecord implements IdentityInterface
     public function isFieldWorker()
     {
         return $this->role === self::ROLE_FIELD_WORKER;
+    }
+
+    // ---- OTP / phone verification ----
+
+    /** Generates a 6-digit OTP, stores its hash + 10-min expiry, returns the plaintext code to send via SMS. */
+    public function generateOtp()
+    {
+        $code = (string) random_int(100000, 999999);
+        $this->otp_hash = Yii::$app->security->generatePasswordHash($code);
+        $this->otp_expires_at = time() + 600; // 10 minutes
+        $this->save(false);
+        return $code;
+    }
+
+    public function verifyOtp($code)
+    {
+        if (empty($this->otp_hash) || empty($this->otp_expires_at)) {
+            return false;
+        }
+        if (time() > $this->otp_expires_at) {
+            return false; // expired
+        }
+        if (!Yii::$app->security->validatePassword($code, $this->otp_hash)) {
+            return false;
+        }
+
+        $this->phone_verified = 1;
+        $this->otp_hash = null;
+        $this->otp_expires_at = null;
+        $this->save(false);
+        return true;
     }
 }

@@ -11,6 +11,7 @@ use app\models\SignupForm;
 use app\models\User;
 use app\models\NewsPost;
 use app\models\Service;
+use app\models\VerifyOtpForm;
 
 class SiteController extends Controller
 {
@@ -21,7 +22,7 @@ class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['login', 'signup', 'error'],
+                        'actions' => ['login', 'signup', 'error', 'verify-phone', 'resend-otp'],
                         'allow' => true,
                         'roles' => ['?'], // guests only
                     ],
@@ -41,6 +42,7 @@ class SiteController extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'logout' => ['post'],
+                    'resend-otp' => ['post'],
                 ],
             ],
         ];
@@ -70,7 +72,18 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $user = $model->getUser();
+
+            if (!$user->phone_verified) {
+                Yii::$app->session->set('unverified_user_id', $user->id);
+                $code = $user->generateOtp();
+                Yii::$app->sms->send($user->phone_number, "Your CHEEM verification code is: $code");
+                Yii::$app->session->setFlash('success', 'Please verify your phone number. A new code was sent.');
+                return $this->redirect(['verify-phone']);
+            }
+
+            Yii::$app->user->login($user, $model->rememberMe ? 3600 * 24 * 30 : 0);
             return $this->goBack();
         }
 
@@ -88,12 +101,56 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $user = $model->signup();
             if ($user) {
-                Yii::$app->user->login($user);
-                return $this->goHome();
+                $code = $user->generateOtp();
+                Yii::$app->sms->send($user->phone_number, "Your CHEEM verification code is: $code");
+                Yii::$app->session->set('unverified_user_id', $user->id);
+                Yii::$app->session->setFlash('success', 'Account created. Enter the code sent to your phone.');
+                return $this->redirect(['verify-phone']);
             }
         }
 
         return $this->render('signup', ['model' => $model]);
+    }
+
+    public function actionVerifyPhone()
+    {
+        $userId = Yii::$app->session->get('unverified_user_id');
+        if (!$userId) {
+            return $this->redirect(['login']);
+        }
+        $user = User::findOne($userId);
+        if (!$user) {
+            Yii::$app->session->remove('unverified_user_id');
+            return $this->redirect(['signup']);
+        }
+
+        $model = new VerifyOtpForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($user->verifyOtp($model->code)) {
+                Yii::$app->session->remove('unverified_user_id');
+                Yii::$app->user->login($user);
+                Yii::$app->session->setFlash('success', 'Phone verified! Welcome.');
+                return $this->goHome();
+            }
+            $model->addError('code', 'Invalid or expired code.');
+        }
+
+        return $this->render('verify-phone', ['model' => $model, 'phone' => $user->phone_number]);
+    }
+
+    public function actionResendOtp()
+    {
+        $userId = Yii::$app->session->get('unverified_user_id');
+        if (!$userId) {
+            return $this->redirect(['login']);
+        }
+        $user = User::findOne($userId);
+        if ($user) {
+            $code = $user->generateOtp();
+            Yii::$app->sms->send($user->phone_number, "Your CHEEM verification code is: $code");
+            Yii::$app->session->setFlash('success', 'A new code has been sent.');
+        }
+        return $this->redirect(['verify-phone']);
     }
 
     public function actionLogout()

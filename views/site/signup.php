@@ -18,6 +18,7 @@ $this->title = 'Sign Up';
 
                 <?= $form->field($model, 'username') ?>
                 <?= $form->field($model, 'email') ?>
+                <?= $form->field($model, 'phone_number')->textInput(['placeholder' => '0712345678'])->hint('We\'ll text you a code to verify this number.') ?>
 
                 <div class="mb-3">
                     <label class="form-label">Password</label>

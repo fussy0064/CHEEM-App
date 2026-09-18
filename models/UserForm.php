@@ -37,6 +37,7 @@ class UserForm extends Model
         $user->email = $this->email;
         $user->role = $this->role;
         $user->status = User::STATUS_ACTIVE;
+        $user->phone_verified = 1; // created directly by superadmin - no OTP needed
         $user->setPassword($this->password);
         $user->generateAuthKey();
 
