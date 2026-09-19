@@ -23,7 +23,7 @@ class RequestController extends Controller
                         'roles' => ['@'], // any logged-in user
                     ],
                     [
-                        'actions' => ['manage', 'update-status'],
+                        'actions' => ['manage', 'update-status', 'view-location'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function () {
@@ -97,5 +97,19 @@ class RequestController extends Controller
         $model->save(false);
 
         return $this->redirect(['manage']);
+    }
+
+    /** Health Officer / Admin: map view with route to the client + status update controls */
+    public function actionViewLocation($id)
+    {
+        $model = ServiceRequest::findOne($id);
+        if (!$model) {
+            throw new NotFoundHttpException('Request not found.');
+        }
+        if (!$model->hasLocation()) {
+            throw new NotFoundHttpException('This request has no pinned location.');
+        }
+
+        return $this->render('view-location', ['model' => $model]);
     }
 }
