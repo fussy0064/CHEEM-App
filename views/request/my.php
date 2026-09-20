@@ -6,6 +6,7 @@ $this->title = 'My Requests';
 ?>
 <h2>My Requests</h2>
 
+<div class="table-responsive">
 <table class="table table-bordered bg-white">
     <thead>
         <tr><th>Ref</th><th>Category</th><th>Location</th><th>Urgency</th><th>Status</th><th>Map</th></tr>
@@ -23,3 +24,4 @@ $this->title = 'My Requests';
     <?php endforeach; ?>
     </tbody>
 </table>
+</div>

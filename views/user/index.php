@@ -7,6 +7,7 @@ $this->title = 'Manage Users';
 <h2>Manage Users</h2>
 <?= Html::a('+ Add Health Officer / User', ['create'], ['class' => 'btn btn-primary mb-3']) ?>
 
+<div class="table-responsive">
 <table class="table table-bordered bg-white">
     <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Role</th><th>Status</th><th></th></tr></thead>
     <tbody>
@@ -36,3 +37,4 @@ $this->title = 'Manage Users';
     <?php endforeach; ?>
     </tbody>
 </table>
+</div>

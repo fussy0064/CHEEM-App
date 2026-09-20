@@ -1,2 +1,156 @@
-body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
-.card { border-radius: 8px; }
+/* ===== CHEEM design tokens ===== */
+:root {
+  --color-primary: #0b5d6e;
+  --color-primary-dark: #073e4a;
+  --color-primary-light: #12879e;
+  --color-accent: #e8792c;
+  --color-accent-dark: #c4611c;
+  --color-bg: #f5f2ea;
+  --color-surface: #ffffff;
+  --color-text: #1f2a2e;
+  --color-muted: #5b6b6e;
+  --color-border: #e2ddd0;
+  --color-success: #2e8b57;
+  --color-warning: #e8b800;
+  --color-danger: #c0392b;
+
+  --font-heading: 'Zilla Slab', Georgia, 'Times New Roman', serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --shadow-card: 0 1px 3px rgba(31, 42, 46, 0.08), 0 1px 2px rgba(31, 42, 46, 0.06);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, .brand-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+a { color: var(--color-primary); }
+a:hover { color: var(--color-primary-dark); }
+
+/* ===== Navbar ===== */
+.navbar-cheem {
+  background: var(--color-primary);
+  padding: 0.6rem 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+.navbar-cheem .navbar-brand {
+  color: #fff !important;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+}
+.navbar-cheem .nav-link {
+  color: rgba(255,255,255,0.9) !important;
+  font-weight: 500;
+}
+.navbar-cheem .nav-link:hover { color: #fff !important; }
+
+.logo-badge {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  padding: 2px;
+  border: 2px solid rgba(255,255,255,0.85);
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+.logo-badge-lg {
+  height: 110px;
+  width: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  padding: 5px;
+  border: 4px solid #fff;
+  box-shadow: var(--shadow-card);
+}
+
+/* ===== Cards ===== */
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+/* ===== Buttons ===== */
+.btn-primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.btn-primary:hover, .btn-primary:focus {
+  background: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+.btn-danger {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+.btn-danger:hover, .btn-danger:focus {
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+}
+.btn-outline-primary {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.btn-outline-primary:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* ===== Urgency / status badges ===== */
+.badge-high { background: var(--color-accent); }
+.badge-low { background: var(--color-success); }
+.badge-medium { background: var(--color-warning); color: #3a2e00; }
+
+/* ===== Hero (landing page) ===== */
+.cheem-hero {
+  text-align: center;
+  padding: 2.5rem 1rem 2rem;
+}
+.cheem-hero p.lead {
+  color: var(--color-muted);
+  max-width: 46ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== Focus visibility (accessibility) ===== */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 3px solid var(--color-primary-light);
+  outline-offset: 2px;
+}
+
+/* ===== Responsive tweaks ===== */
+@media (max-width: 767px) {
+  .cheem-hero { padding: 1.5rem 0.5rem 1rem; }
+  .logo-badge-lg { height: 84px; width: 84px; }
+  h2 { font-size: 1.4rem; }
+  .table-responsive-wrap { overflow-x: auto; }
+}
+
+/* Wide content (tables) never breaks page layout on small screens */
+.table { width: 100%; }
+.table-responsive-scroll { overflow-x: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}

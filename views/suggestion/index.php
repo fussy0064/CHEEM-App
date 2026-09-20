@@ -6,6 +6,7 @@ $this->title = 'Suggestions';
 ?>
 <h2>Client Suggestions</h2>
 
+<div class="table-responsive">
 <table class="table table-bordered bg-white">
     <thead><tr><th>Message</th><th>Status</th><th>Date</th></tr></thead>
     <tbody>
@@ -21,3 +22,4 @@ $this->title = 'Suggestions';
     <?php endif; ?>
     </tbody>
 </table>
+</div>

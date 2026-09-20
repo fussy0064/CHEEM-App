@@ -7,6 +7,7 @@ $this->title = 'Manage Services';
 <h2>Manage Services</h2>
 <?= Html::a('+ Add Service', ['service-create'], ['class' => 'btn btn-primary mb-3']) ?>
 
+<div class="table-responsive">
 <table class="table table-bordered bg-white">
     <thead><tr><th>Name</th><th>Category</th><th>Active</th><th></th></tr></thead>
     <tbody>
@@ -26,3 +27,4 @@ $this->title = 'Manage Services';
     <?php endforeach; ?>
     </tbody>
 </table>
+</div>

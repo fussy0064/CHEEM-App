@@ -7,6 +7,7 @@ $this->title = 'Manage News';
 <h2>Manage Home Page News</h2>
 <?= Html::a('+ Add News Post', ['news-create'], ['class' => 'btn btn-primary mb-3']) ?>
 
+<div class="table-responsive">
 <table class="table table-bordered bg-white">
     <thead><tr><th>Image</th><th>Title</th><th>Active</th><th></th></tr></thead>
     <tbody>
@@ -26,3 +27,4 @@ $this->title = 'Manage News';
     <?php endforeach; ?>
     </tbody>
 </table>
+</div>
