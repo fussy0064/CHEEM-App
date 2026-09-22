@@ -29,7 +29,7 @@ AppAsset::register($this);
 <nav class="navbar navbar-expand-md navbar-cheem" aria-label="Main navigation">
     <div class="container">
         <a class="navbar-brand" href="<?= Url::to(['/site/index']) ?>">
-            <img src="<?= Url::to('@web/images/logo.png') ?>" alt="CHEEM logo" class="logo-badge">
+            <img src="<?= Url::to('@web/images/logo.png') ?>" alt="CHEEM logo" class="logo-badge" width="32" height="32">
             CHEEM
         </a>
 
