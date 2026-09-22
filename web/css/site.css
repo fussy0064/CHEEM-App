@@ -133,7 +133,18 @@ a:hover { color: var(--color-primary-dark); }
   margin-right: auto;
 }
 
-/* ===== Focus visibility (accessibility) ===== */
+/* ===== Sidebar nav ===== */
+.list-group-item-action {
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+.list-group-item-action:hover, .list-group-item-action:focus {
+  background: var(--color-bg);
+  color: var(--color-primary-dark);
+}
+.list-group-item-action.fw-bold {
+  color: var(--color-primary);
+}
 a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
   outline: 3px solid var(--color-primary-light);
   outline-offset: 2px;
