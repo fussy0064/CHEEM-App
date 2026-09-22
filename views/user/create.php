@@ -17,7 +17,7 @@ $this->title = 'Add User';
     <label class="form-label">Password</label>
     <div class="input-group">
         <?= Html::activePasswordInput($model, 'password', ['class' => 'form-control', 'id' => 'newuser-password']) ?>
-        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="newuser-password">👁</button>
+        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="newuser-password"><i class="fas fa-eye"></i></button>
     </div>
     <?= Html::error($model, 'password', ['class' => 'invalid-feedback d-block']) ?>
 </div>

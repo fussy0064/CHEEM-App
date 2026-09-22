@@ -15,7 +15,7 @@ $this->title = 'Reset Password';
     <label class="form-label">New Password</label>
     <div class="input-group">
         <?= Html::activePasswordInput($model, 'password', ['class' => 'form-control', 'id' => 'reset-password-1', 'placeholder' => 'Min 8 characters']) ?>
-        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="reset-password-1">👁</button>
+        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="reset-password-1"><i class="fas fa-eye"></i></button>
     </div>
     <?= Html::error($model, 'password', ['class' => 'invalid-feedback d-block']) ?>
 </div>
@@ -24,7 +24,7 @@ $this->title = 'Reset Password';
     <label class="form-label">Repeat New Password</label>
     <div class="input-group">
         <?= Html::activePasswordInput($model, 'password_repeat', ['class' => 'form-control', 'id' => 'reset-password-2', 'placeholder' => 'Repeat new password']) ?>
-        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="reset-password-2">👁</button>
+        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="reset-password-2"><i class="fas fa-eye"></i></button>
     </div>
     <?= Html::error($model, 'password_repeat', ['class' => 'invalid-feedback d-block']) ?>
 </div>

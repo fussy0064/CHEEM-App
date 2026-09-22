@@ -19,7 +19,7 @@ $this->title = 'My Requests';
             <td><?= Html::encode($r->location) ?></td>
             <td><span class="badge badge-<?= $r->urgency ?>"><?= $r->getUrgencyLabel() ?></span></td>
             <td><?= $r->getStatusLabel() ?></td>
-            <td><?php if ($r->hasLocation()): ?><?= Html::a('📍 View', $r->getMapUrl(), ['target' => '_blank']) ?><?php endif; ?></td>
+            <td><?php if ($r->hasLocation()): ?><?= Html::a('<i class="fas fa-location-dot"></i> View', $r->getMapUrl(), ['target' => '_blank', 'encode' => false]) ?><?php endif; ?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>

@@ -28,7 +28,7 @@ $this->title = 'Reset Password';
                     <label class="form-label">New Password</label>
                     <div class="input-group">
                         <?= Html::activePasswordInput($model, 'password', ['class' => 'form-control', 'id' => 'reset-otp-password']) ?>
-                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="reset-otp-password">👁</button>
+                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="reset-otp-password"><i class="fas fa-eye"></i></button>
                     </div>
                     <?= Html::error($model, 'password', ['class' => 'invalid-feedback d-block']) ?>
                 </div>
@@ -37,7 +37,7 @@ $this->title = 'Reset Password';
                     <label class="form-label">Confirm New Password</label>
                     <div class="input-group">
                         <?= Html::activePasswordInput($model, 'password_repeat', ['class' => 'form-control', 'id' => 'reset-otp-password-repeat']) ?>
-                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="reset-otp-password-repeat">👁</button>
+                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="reset-otp-password-repeat"><i class="fas fa-eye"></i></button>
                     </div>
                     <?= Html::error($model, 'password_repeat', ['class' => 'invalid-feedback d-block']) ?>
                 </div>

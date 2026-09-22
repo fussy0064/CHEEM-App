@@ -24,7 +24,7 @@ $statusColor = $statusColors[$model->status] ?? '#999';
 </p>
 <p><?= Html::encode($model->description) ?></p>
 
-<div id="routeInfo" class="alert alert-info">📍 Getting your location to calculate the route...</div>
+<div id="routeInfo" class="alert alert-info"><i class="fas fa-location-crosshairs"></i> Getting your location to calculate the route...</div>
 
 <div id="officerMap" style="height:420px;border-radius:8px;border:1px solid #ccc"></div>
 
@@ -94,7 +94,7 @@ function drawRoute(originLat, originLng) {
             var km = (route.distance / 1000).toFixed(1);
             var mins = Math.round(route.duration / 60);
             routeInfo.className = 'alert alert-success';
-            routeInfo.innerHTML = '🚗 Shortest route: <strong>' + km + ' km</strong>, about <strong>' + mins + ' min</strong> by road.';
+            routeInfo.innerHTML = '<i class="fas fa-car"></i> Shortest route: <strong>' + km + ' km</strong>, about <strong>' + mins + ' min</strong> by road.';
         })
         .catch(function () {
             routeInfo.className = 'alert alert-warning';

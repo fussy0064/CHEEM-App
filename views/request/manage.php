@@ -14,7 +14,7 @@ function renderCard($r) {
     $html .= '<span class="badge badge-' . $r->urgency . '">' . $r->getUrgencyLabel() . '</span> ';
     $html .= '<span class="small text-muted">' . Html::encode($r->reference_number) . '</span><br>';
     if ($r->hasLocation()) {
-        $html .= '<a href="' . \yii\helpers\Url::to(['request/view-location', 'id' => $r->id]) . '" class="small">📍 View Route &amp; Location</a>';
+        $html .= '<a href="' . \yii\helpers\Url::to(['request/view-location', 'id' => $r->id]) . '" class="small"><i class="fas fa-location-dot"></i> View Route &amp; Location</a>';
     }
     $html .= '<div class="mt-2">';
     if ($r->status !== 'in_progress') {

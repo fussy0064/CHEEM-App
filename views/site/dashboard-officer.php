@@ -21,12 +21,12 @@ $resolvedCount = ServiceRequest::find()->where(['status' => 'resolved'])->count(
         </button>
         <div class="collapse show" id="sidebarNav">
             <div class="list-group shadow-sm">
-                <?= Html::a('📋 Open Kanban Board', ['request/manage'], ['class' => 'list-group-item list-group-item-action fw-bold']) ?>
+                <?= Html::a('<i class="fas fa-table-columns"></i> Open Kanban Board', ['request/manage'], ['class' => 'list-group-item list-group-item-action fw-bold', 'encode' => false]) ?>
                 <?php if ($user->isAdmin()): ?>
-                    <?= Html::a('➕ Add Health Officer', ['user/create'], ['class' => 'list-group-item list-group-item-action']) ?>
+                    <?= Html::a('<i class="fas fa-plus"></i> Add Health Officer', ['user/create'], ['class' => 'list-group-item list-group-item-action', 'encode' => false]) ?>
                 <?php endif; ?>
-                <?= Html::a('➕ Add Service', ['admin/service-create'], ['class' => 'list-group-item list-group-item-action']) ?>
-                <?= Html::a('➕ Add News', ['admin/news-create'], ['class' => 'list-group-item list-group-item-action']) ?>
+                <?= Html::a('<i class="fas fa-plus"></i> Add Service', ['admin/service-create'], ['class' => 'list-group-item list-group-item-action', 'encode' => false]) ?>
+                <?= Html::a('<i class="fas fa-plus"></i> Add News', ['admin/news-create'], ['class' => 'list-group-item list-group-item-action', 'encode' => false]) ?>
             </div>
         </div>
     </div>

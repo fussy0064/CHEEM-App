@@ -24,7 +24,7 @@ $this->title = 'Sign Up';
                     <label class="form-label">Password</label>
                     <div class="input-group">
                         <?= Html::activePasswordInput($model, 'password', ['class' => 'form-control', 'id' => 'signup-password']) ?>
-                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="signup-password">👁</button>
+                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="signup-password"><i class="fas fa-eye"></i></button>
                     </div>
                     <?= Html::error($model, 'password', ['class' => 'invalid-feedback d-block']) ?>
                 </div>
@@ -33,7 +33,7 @@ $this->title = 'Sign Up';
                     <label class="form-label">Confirm Password</label>
                     <div class="input-group">
                         <?= Html::activePasswordInput($model, 'password_repeat', ['class' => 'form-control', 'id' => 'signup-password-repeat']) ?>
-                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="signup-password-repeat">👁</button>
+                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="signup-password-repeat"><i class="fas fa-eye"></i></button>
                     </div>
                     <?= Html::error($model, 'password_repeat', ['class' => 'invalid-feedback d-block']) ?>
                     <div id="password-match-msg" class="small mt-1"></div>
@@ -61,10 +61,10 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
         if (pass.value === repeat.value) {
-            msg.textContent = '✅ Passwords match';
+            msg.innerHTML = '<i class="fas fa-check text-success"></i> Passwords match';
             msg.className = 'small mt-1 text-success';
         } else {
-            msg.textContent = '❌ Passwords do not match';
+            msg.innerHTML = '<i class="fas fa-xmark text-danger"></i> Passwords do not match';
             msg.className = 'small mt-1 text-danger';
         }
     }

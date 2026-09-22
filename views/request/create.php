@@ -28,7 +28,7 @@ $this->registerJsFile('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js', ['posit
 
 <div class="mb-3">
     <label class="form-label">Pin your exact location <span class="text-muted small">(drag the marker, or use the button below)</span></label>
-    <button type="button" id="locateMeBtn" class="btn btn-sm btn-outline-secondary mb-2">📍 Use My Current Location</button>
+    <button type="button" id="locateMeBtn" class="btn btn-sm btn-outline-secondary mb-2"><i class="fas fa-location-crosshairs"></i> Use My Current Location</button>
     <div id="requestMap" style="height:300px;border-radius:8px;border:1px solid #ccc"></div>
 </div>
 

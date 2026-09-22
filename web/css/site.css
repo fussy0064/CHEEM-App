@@ -56,10 +56,28 @@ a:hover { color: var(--color-primary-dark); }
   align-items: center;
 }
 .navbar-cheem .nav-link {
-  color: rgba(255,255,255,0.9) !important;
+  color: #ffffff !important;
   font-weight: 500;
 }
-.navbar-cheem .nav-link:hover { color: #fff !important; }
+.navbar-cheem .nav-link:hover { color: #d9f0f4 !important; }
+.navbar-cheem .dropdown-menu {
+  border: none;
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-sm);
+}
+.navbar-cheem .dropdown-item {
+  color: var(--color-text);
+  padding: 0.5rem 1rem;
+}
+.navbar-cheem .dropdown-item:hover, .navbar-cheem .dropdown-item:focus {
+  background: var(--color-bg);
+  color: var(--color-primary-dark);
+}
+.navbar-cheem .dropdown-item i, .navbar-cheem .nav-link i {
+  width: 1.1em;
+  text-align: center;
+  margin-right: 4px;
+}
 
 .logo-badge {
   height: 32px;
