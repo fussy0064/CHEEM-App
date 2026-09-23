@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 
 /** @var \app\models\Service $model */
 $this->title = $model->isNewRecord ? 'Add Service' : 'Edit Service';
